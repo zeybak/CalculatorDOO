@@ -12,9 +12,33 @@ package calculator;
 public class Calculator implements IInputListener {
     private IUI uiModule;
     
-    public void build()
+    public Calculator()
     {
         this.uiModule = new UI();
         this.uiModule.build();
+    }
+
+    @Override
+    public void onNumberInputEvent(int number) {
+    }
+
+    @Override
+    public void onDecimalInputEvent() {
+    }
+
+    @Override
+    public void onOperaitonInputEvent() {
+    }
+
+    @Override
+    public void onQuitInputEvent() {
+    }
+
+    @Override
+    public void onClearInputEvent() {
+    }
+
+    @Override
+    public void onEqualsInputEvent() {
     }
 }

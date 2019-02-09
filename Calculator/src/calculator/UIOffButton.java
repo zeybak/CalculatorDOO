@@ -9,11 +9,13 @@ package calculator;
  *
  * @author mauro
  */
-public class Main {
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Calculator calculator = new Calculator();
+public class UIOffButton extends UIInputButton {
+    public UIOffButton(String label) {
+        super(label);
+    }
+    
+    @Override
+    protected void callListenerFunction(IInputListener listener) {
+        listener.onQuitInputEvent();
     }
 }
