@@ -21,12 +21,19 @@ public class Arithmetics implements IArithmetics {
     
     @Override
     public void addNumber(String number) {
-        if (this.operands.isEmpty() || this.operands.get(this.operands.size() - 1).isCompleted()) {
+        if (this.operation == null) {
+            if (!this.operands.isEmpty()) {
+                clear();
+            }
             createNumber(number);
+            return;
         }
-        else {
-            this.operands.get(this.operands.size() - 1).addNumber(number);
+        if (this.operands.size() < this.operation.getOperandsNeeded()) {
+            createNumber(number);
+            return;
         }
+        
+        this.operands.get(this.operands.size() - 1).addNumber(number);
     }
 
     @Override
@@ -34,17 +41,20 @@ public class Arithmetics implements IArithmetics {
         if (this.operands.isEmpty()) {
             createNumber("0");
         }
-        else if (this.operands.get(this.operands.size() - 1).isCompleted()) {
+        else if (this.operation != null && this.operands.size() < this.operation.getOperandsNeeded()) {
             createNumber("0");
         }
+        
         this.operands.get(this.operands.size() - 1).addDecimal();
     }
 
     @Override
     public void setOperation(IOperation operation) {
         if (this.operands.size() > 0) {
+            if (this.operation != null && this.operands.size() >= this.operation.getOperandsNeeded()) {
+                calculate();
+            }
             this.operation = operation;
-            this.operands.get(this.operands.size() - 1).setCompleted();
         }
     }
 

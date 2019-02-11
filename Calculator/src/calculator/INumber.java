@@ -13,9 +13,7 @@ public interface INumber {
     public void addNumber(String number);
     public void addDecimal();
     public void setValue(float value);
-    public void setCompleted();
     public float getValue();
-    public Boolean isCompleted();
     @Override
     public String toString();
 }

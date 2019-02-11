@@ -51,7 +51,7 @@ public class Calculator implements IInputListener {
 
     @Override
     public void onEqualsInputEvent() {
-        this.uiModule.displayOperation(this.arithmeticsModule.getOperation());
+        this.uiModule.displayOperation("");
         this.uiModule.display(this.arithmeticsModule.calculate().toString());
     }
 }
