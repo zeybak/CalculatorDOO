@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Arithmetics implements IArithmetics {
     protected ArrayList<INumber> operands;
+    protected IOperation operation;
     
     public Arithmetics() {
         this.operands = new ArrayList<>();
@@ -20,7 +21,7 @@ public class Arithmetics implements IArithmetics {
     
     @Override
     public void addNumber(String number) {
-        if (this.operands.isEmpty()) {
+        if (this.operands.isEmpty() || this.operands.get(this.operands.size() - 1).isCompleted()) {
             createNumber(number);
         }
         else {
@@ -31,32 +32,47 @@ public class Arithmetics implements IArithmetics {
     @Override
     public void addDecimal() {
         if (this.operands.isEmpty()) {
-            INumber number = createNumber("0");
-            number.addDecimal();
+            createNumber("0");
         }
-        else {
-            this.operands.get(this.operands.size() - 1).addDecimal();
+        else if (this.operands.get(this.operands.size() - 1).isCompleted()) {
+            createNumber("0");
         }
+        this.operands.get(this.operands.size() - 1).addDecimal();
     }
 
     @Override
-    public void setOperation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setOperation(IOperation operation) {
+        if (this.operands.size() > 0) {
+            this.operation = operation;
+            this.operands.get(this.operands.size() - 1).setCompleted();
+        }
     }
 
     @Override
     public void clear() {
         this.operands.clear();
+        this.operation = null;
     }
 
     @Override
-    public void calculate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public INumber calculate() {
+        INumber number = new Number();
+        if (this.operation != null) {
+            number.setValue(this.operation.evaluate(operandsAsArray()).getValue());
+            clear();
+            this.operands.add(number);
+        }
+        return number;
     }
 
     @Override
     public String getOperation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.operation != null) {
+            return this.operation.getOperationDescription(operandsAsArray());
+        }
+        else {
+            return "";
+        }
     }
 
     @Override
@@ -69,10 +85,14 @@ public class Arithmetics implements IArithmetics {
         }
     }
     
-    private INumber createNumber(String value) {
-        Number number = new Number();
-        number.addNumber(value);
+    private void createNumber(String value) {
+        Number number = new Number(value);
         this.operands.add(number);
-        return number;
+    }
+    
+    private INumber[] operandsAsArray() {
+        INumber[] operandsArray = new INumber[this.operands.size()];
+        operandsArray = this.operands.toArray(operandsArray);
+        return operandsArray;
     }
 }

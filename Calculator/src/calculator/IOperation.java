@@ -9,8 +9,8 @@ package calculator;
  *
  * @author mauro
  */
-public interface IUI {
-    public void display(String label);
-    public void displayOperation(String label);
-    public void clear();
+public interface IOperation {
+    public INumber evaluate(INumber[] numbers);
+    public String getOperationDescription(INumber[] numbers);
+    public int getOperandsNeeded();
 }

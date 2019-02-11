@@ -21,13 +21,13 @@ public class UI implements IUI {
         
         this.operation = new UILabel();
         this.result = new UILabel();
-        UIInputButton additionButton = new UIOperationButton("+");
+        UIInputButton additionButton = new UIOperationButton("+", new AdditionOperation());
         additionButton.addListener(listener);
-        UIInputButton substractionButton = new UIOperationButton("-");
+        UIInputButton substractionButton = new UIOperationButton("-", new SubstractionOperation());
         substractionButton.addListener(listener);
-        UIInputButton multiplicationButton = new UIOperationButton("*");
+        UIInputButton multiplicationButton = new UIOperationButton("*", new MultiplicationOperation());
         multiplicationButton.addListener(listener);
-        UIInputButton divisionButton = new UIOperationButton("/");
+        UIInputButton divisionButton = new UIOperationButton("/", new DivisionOperation());
         divisionButton.addListener(listener);
         UIInputButton resultButton = new UIResultButton("=");
         resultButton.addListener(listener);
@@ -124,7 +124,13 @@ public class UI implements IUI {
     }
     
     @Override
+    public void displayOperation(String label) {
+        this.operation.setText(label);
+    }
+    
+    @Override
     public void clear() {
         this.result.setText("");
+        this.operation.setText("");
     }
 }

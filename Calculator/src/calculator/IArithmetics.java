@@ -12,9 +12,9 @@ package calculator;
 public interface IArithmetics {
     public void addNumber(String number);
     public void addDecimal();
-    public void setOperation();
+    public void setOperation(IOperation operation);
     public void clear();
-    public void calculate();
+    public INumber calculate();
     public String getOperation();
     public String getOperand();
 }

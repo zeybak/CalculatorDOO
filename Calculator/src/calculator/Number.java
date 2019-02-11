@@ -11,9 +11,21 @@ package calculator;
  */
 public class Number implements INumber {
     protected String number;
+    protected Boolean completed;
     
     public Number() {
         this.number = "";
+        this.completed = false;
+    }
+    
+    public Number(String value) {
+        this.number = value;
+        this.completed = false;
+    }
+    
+    public Number(float value) {
+        setValue(value);
+        this.completed = false;
     }
     
     @Override
@@ -41,5 +53,15 @@ public class Number implements INumber {
     @Override
     public String toString() {
         return this.number;
+    }
+
+    @Override
+    public void setCompleted() {
+        this.completed = true;
+    }
+
+    @Override
+    public Boolean isCompleted() {
+        return this.completed;
     }
 }

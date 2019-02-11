@@ -32,7 +32,10 @@ public class Calculator implements IInputListener {
     }
 
     @Override
-    public void onOperaitonInputEvent() {
+    public void onOperaitonInputEvent(IOperation operation) {
+        this.arithmeticsModule.setOperation(operation);
+        this.uiModule.displayOperation(this.arithmeticsModule.getOperation());
+        this.uiModule.display("");
     }
 
     @Override
@@ -48,5 +51,7 @@ public class Calculator implements IInputListener {
 
     @Override
     public void onEqualsInputEvent() {
+        this.uiModule.displayOperation(this.arithmeticsModule.getOperation());
+        this.uiModule.display(this.arithmeticsModule.calculate().toString());
     }
 }
