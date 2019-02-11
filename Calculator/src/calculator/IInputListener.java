@@ -10,7 +10,7 @@ package calculator;
  * @author mauro
  */
 public interface IInputListener {
-    public void onNumberInputEvent(int number);
+    public void onNumberInputEvent(String number);
     public void onDecimalInputEvent();
     public void onOperaitonInputEvent();
     public void onEqualsInputEvent();

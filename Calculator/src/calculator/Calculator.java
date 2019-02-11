@@ -10,20 +10,25 @@ package calculator;
  * @author mauro
  */
 public class Calculator implements IInputListener {
-    private IUI uiModule;
+    protected IUI uiModule;
+    protected IArithmetics arithmeticsModule;
     
     public Calculator()
     {
-        this.uiModule = new UI();
-        this.uiModule.build();
+        this.uiModule = new UI(this);
+        this.arithmeticsModule = new Arithmetics();
     }
 
     @Override
-    public void onNumberInputEvent(int number) {
+    public void onNumberInputEvent(String number) {
+        this.arithmeticsModule.addNumber(number);
+        this.uiModule.display(this.arithmeticsModule.getOperand());
     }
 
     @Override
     public void onDecimalInputEvent() {
+        this.arithmeticsModule.addDecimal();
+        this.uiModule.display(this.arithmeticsModule.getOperand());
     }
 
     @Override
@@ -32,10 +37,13 @@ public class Calculator implements IInputListener {
 
     @Override
     public void onQuitInputEvent() {
+        System.exit(0);
     }
 
     @Override
     public void onClearInputEvent() {
+        this.arithmeticsModule.clear();
+        this.uiModule.clear();
     }
 
     @Override

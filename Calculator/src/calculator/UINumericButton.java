@@ -5,8 +5,6 @@
  */
 package calculator;
 
-import static java.lang.Integer.parseInt;
-
 /**
  *
  * @author mauro
@@ -18,6 +16,6 @@ public class UINumericButton extends UIInputButton {
     
     @Override
     protected void callListenerFunction(IInputListener listener) {
-        listener.onNumberInputEvent(parseInt(this.button.getText()));
+        listener.onNumberInputEvent(this.button.getText());
     }
 }

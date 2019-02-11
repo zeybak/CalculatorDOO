@@ -9,7 +9,12 @@ package calculator;
  *
  * @author mauro
  */
-public interface IUI {
-    public void display(String label);
+public interface IArithmetics {
+    public void addNumber(String number);
+    public void addDecimal();
+    public void setOperation();
     public void clear();
+    public void calculate();
+    public String getOperation();
+    public String getOperand();
 }

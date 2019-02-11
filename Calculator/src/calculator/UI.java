@@ -13,25 +13,36 @@ import javax.swing.JFrame;
  * @author mauro
  */
 public class UI implements IUI {
-    private IUILabel label;
+    private final IUILabel operation;
+    private final IUILabel result;
     
-    public void build()
-    {
+    public UI(IInputListener listener) {
         JFrame calculatorUI = new JFrame("UBP: Object Oriented Design - Calculator");
         
-        this.label = new UILabel();
-        UIButton additionButton = new UIOperationButton("+");
-        UIButton substractionButton = new UIOperationButton("-");
-        UIButton multiplicationButton = new UIOperationButton("*");
-        UIButton divisionButton = new UIOperationButton("/");
-        UIButton resultButton = new UIResultButton("=");
-        UIButton[] numbersButtons = new UIButton[10];
+        this.operation = new UILabel();
+        this.result = new UILabel();
+        UIInputButton additionButton = new UIOperationButton("+");
+        additionButton.addListener(listener);
+        UIInputButton substractionButton = new UIOperationButton("-");
+        substractionButton.addListener(listener);
+        UIInputButton multiplicationButton = new UIOperationButton("*");
+        multiplicationButton.addListener(listener);
+        UIInputButton divisionButton = new UIOperationButton("/");
+        divisionButton.addListener(listener);
+        UIInputButton resultButton = new UIResultButton("=");
+        resultButton.addListener(listener);
+        UIInputButton[] numbersButtons = new UIInputButton[10];
         for (Integer i = 0; i < numbersButtons.length; i++)
         {
             numbersButtons[i] = new UINumericButton(i.toString());
+            numbersButtons[i].addListener(listener);
         }
-        UIButton decimalButton = new UIDecimalButton(".");
-        UIButton clearButton = new UIClearButton("C");
+        UIInputButton decimalButton = new UIDecimalButton(".");
+        decimalButton.addListener(listener);
+        UIInputButton clearButton = new UIClearButton("C");
+        clearButton.addListener(listener);
+        UIInputButton offButton = new UIOffButton("OFF");
+        offButton.addListener(listener);
         
         GroupLayout layout = new GroupLayout(calculatorUI.getContentPane());
         calculatorUI.setLayout(layout);
@@ -39,31 +50,31 @@ public class UI implements IUI {
         layout.setAutoCreateGaps(true);
         
         GroupLayout.ParallelGroup firstColumn = layout.createParallelGroup();
-        firstColumn.addComponent(this.label.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+        firstColumn.addComponent(offButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         firstColumn.addComponent(numbersButtons[7].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         firstColumn.addComponent(numbersButtons[4].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         firstColumn.addComponent(numbersButtons[1].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         GroupLayout.ParallelGroup secondColumn = layout.createParallelGroup();
-        secondColumn.addComponent(this.label.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         secondColumn.addComponent(clearButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         secondColumn.addComponent(numbersButtons[8].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         secondColumn.addComponent(numbersButtons[5].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         secondColumn.addComponent(numbersButtons[2].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         secondColumn.addComponent(numbersButtons[0].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         GroupLayout.ParallelGroup thirdColumn = layout.createParallelGroup();
-        thirdColumn.addComponent(this.label.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         thirdColumn.addComponent(numbersButtons[9].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         thirdColumn.addComponent(numbersButtons[6].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         thirdColumn.addComponent(numbersButtons[3].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         thirdColumn.addComponent(decimalButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         GroupLayout.ParallelGroup fourthColumn = layout.createParallelGroup();
-        fourthColumn.addComponent(this.label.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+        fourthColumn.addComponent(this.operation.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+        fourthColumn.addComponent(this.result.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         fourthColumn.addComponent(divisionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         fourthColumn.addComponent(multiplicationButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         fourthColumn.addComponent(substractionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         fourthColumn.addComponent(additionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         fourthColumn.addComponent(resultButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         GroupLayout.ParallelGroup firstRow = layout.createParallelGroup();
+        firstRow.addComponent(offButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         firstRow.addComponent(clearButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         firstRow.addComponent(divisionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         GroupLayout.ParallelGroup secondRow = layout.createParallelGroup();
@@ -93,9 +104,9 @@ public class UI implements IUI {
                 .addGroup(thirdColumn)
                 .addGroup(fourthColumn)
         );
-        layout.setVerticalGroup(
-            layout.createSequentialGroup()
-                .addComponent(this.label.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addComponent(this.operation.getComponent(), GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+                .addComponent(this.result.getComponent(), GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
                 .addGroup(firstRow)
                 .addGroup(secondRow)
                 .addGroup(thirdRow)
@@ -105,5 +116,15 @@ public class UI implements IUI {
         
         calculatorUI.setSize(400,500);
         calculatorUI.setVisible(true);
+    }
+    
+    @Override
+    public void display(String label) {
+        this.result.setText(label);
+    }
+    
+    @Override
+    public void clear() {
+        this.result.setText("");
     }
 }

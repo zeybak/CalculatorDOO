@@ -14,8 +14,14 @@ import java.util.ArrayList;
 public abstract class UIInputButton extends UIButton {
     protected ArrayList<IInputListener> listeners;
     
+    public UIInputButton() {
+        super();
+        this.listeners = new ArrayList<>();
+    }
+    
     public UIInputButton(String label) {
         super(label);
+        this.listeners = new ArrayList<>();
     }
     
     public void addListener(IInputListener listener) {

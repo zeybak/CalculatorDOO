@@ -38,6 +38,7 @@ public abstract class UIButton implements IUIElement {
         });
     }
     
+    @Override
     public JComponent getComponent() {
         return this.button;
     }
