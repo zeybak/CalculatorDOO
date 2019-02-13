@@ -13,109 +13,23 @@ import javax.swing.JFrame;
  * @author mauro
  */
 public class UI implements IUI {
-    private final IUILabel operation;
-    private final IUILabel result;
+    private IUILabel operation;
+    private IUILabel result;
     
     public UI(IInputListener listener) {
         JFrame calculatorUI = new JFrame("UBP: Object Oriented Design - Calculator");
-        
-        this.operation = new UILabel();
-        this.result = new UILabel();
-        UIInputButton additionButton = new UIOperationButton("+", new AdditionOperation());
-        additionButton.addListener(listener);
-        UIInputButton substractionButton = new UIOperationButton("-", new SubstractionOperation());
-        substractionButton.addListener(listener);
-        UIInputButton multiplicationButton = new UIOperationButton("*", new MultiplicationOperation());
-        multiplicationButton.addListener(listener);
-        UIInputButton divisionButton = new UIOperationButton("/", new DivisionOperation());
-        divisionButton.addListener(listener);
-        UIInputButton resultButton = new UIResultButton("=");
-        resultButton.addListener(listener);
-        UIInputButton[] numbersButtons = new UIInputButton[10];
-        for (Integer i = 0; i < numbersButtons.length; i++)
-        {
-            numbersButtons[i] = new UINumericButton(i.toString());
-            numbersButtons[i].addListener(listener);
-        }
-        UIInputButton decimalButton = new UIDecimalButton(".");
-        decimalButton.addListener(listener);
-        UIInputButton clearButton = new UIClearButton("C");
-        clearButton.addListener(listener);
-        UIInputButton offButton = new UIOffButton("OFF");
-        offButton.addListener(listener);
-        
-        GroupLayout layout = new GroupLayout(calculatorUI.getContentPane());
-        calculatorUI.setLayout(layout);
-        layout.setAutoCreateContainerGaps(true);
-        layout.setAutoCreateGaps(true);
-        
-        GroupLayout.ParallelGroup firstColumn = layout.createParallelGroup();
-        firstColumn.addComponent(offButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        firstColumn.addComponent(numbersButtons[7].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        firstColumn.addComponent(numbersButtons[4].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        firstColumn.addComponent(numbersButtons[1].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup secondColumn = layout.createParallelGroup();
-        secondColumn.addComponent(clearButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        secondColumn.addComponent(numbersButtons[8].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        secondColumn.addComponent(numbersButtons[5].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        secondColumn.addComponent(numbersButtons[2].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        secondColumn.addComponent(numbersButtons[0].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup thirdColumn = layout.createParallelGroup();
-        thirdColumn.addComponent(numbersButtons[9].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        thirdColumn.addComponent(numbersButtons[6].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        thirdColumn.addComponent(numbersButtons[3].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        thirdColumn.addComponent(decimalButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup fourthColumn = layout.createParallelGroup();
-        fourthColumn.addComponent(this.operation.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthColumn.addComponent(this.result.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthColumn.addComponent(divisionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthColumn.addComponent(multiplicationButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthColumn.addComponent(substractionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthColumn.addComponent(additionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthColumn.addComponent(resultButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup firstRow = layout.createParallelGroup();
-        firstRow.addComponent(offButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        firstRow.addComponent(clearButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        firstRow.addComponent(divisionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup secondRow = layout.createParallelGroup();
-        secondRow.addComponent(numbersButtons[7].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        secondRow.addComponent(numbersButtons[8].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        secondRow.addComponent(numbersButtons[9].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        secondRow.addComponent(multiplicationButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup thirdRow = layout.createParallelGroup();
-        thirdRow.addComponent(numbersButtons[4].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        thirdRow.addComponent(numbersButtons[5].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        thirdRow.addComponent(numbersButtons[6].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        thirdRow.addComponent(substractionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup fourthRow = layout.createParallelGroup();
-        fourthRow.addComponent(numbersButtons[1].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthRow.addComponent(numbersButtons[2].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthRow.addComponent(numbersButtons[3].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fourthRow.addComponent(additionButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        GroupLayout.ParallelGroup fifthRow = layout.createParallelGroup();
-        fifthRow.addComponent(numbersButtons[0].getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fifthRow.addComponent(decimalButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        fifthRow.addComponent(resultButton.getComponent(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        
-        layout.setHorizontalGroup(
-            layout.createSequentialGroup()
-                .addGroup(firstColumn)
-                .addGroup(secondColumn)
-                .addGroup(thirdColumn)
-                .addGroup(fourthColumn)
-        );
-        layout.setVerticalGroup(layout.createSequentialGroup()
-                .addComponent(this.operation.getComponent(), GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-                .addComponent(this.result.getComponent(), GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                .addGroup(firstRow)
-                .addGroup(secondRow)
-                .addGroup(thirdRow)
-                .addGroup(fourthRow)
-                .addGroup(fifthRow)
-        );
-        
         calculatorUI.setSize(400,500);
         calculatorUI.setVisible(true);
+        
+        LayoutBuilder layoutBuilder = new LayoutBuilder(calculatorUI.getContentPane(), 4, 7);
+        
+        createDisplays(layoutBuilder);
+        createOperations(layoutBuilder, listener);
+        createNumbers(layoutBuilder, listener);
+        
+        layoutBuilder.generateLayout();
+        
+        calculatorUI.setLayout(layoutBuilder.getLayout());
     }
     
     @Override
@@ -132,5 +46,67 @@ public class UI implements IUI {
     public void clear() {
         this.result.setText("");
         this.operation.setText("");
+    }
+    
+    private void createDisplays(LayoutBuilder builder) {
+        this.operation = new UILabel();
+        builder.addLayoutElement(this.operation.getComponent(), 3, 0);
+        
+        this.result = new UILabel();
+        builder.addLayoutElement(this.result.getComponent(), 3, 1);
+    }
+    
+    private void createOperations(LayoutBuilder builder, IInputListener listener) {
+        UIInputButton offButton = new UIOffButton("OFF");
+        offButton.addListener(listener);
+        builder.addLayoutElement(offButton.getComponent(), 0, 2);
+        
+        UIInputButton clearButton = new UIClearButton("C");
+        clearButton.addListener(listener);
+        builder.addLayoutElement(clearButton.getComponent(), 1, 2);
+        
+        UIInputButton divisionButton = new UIOperationButton("/", new DivisionOperation());
+        divisionButton.addListener(listener);
+        builder.addLayoutElement(divisionButton.getComponent(), 3, 2);
+        
+        UIInputButton multiplicationButton = new UIOperationButton("*", new MultiplicationOperation());
+        multiplicationButton.addListener(listener);
+        builder.addLayoutElement(multiplicationButton.getComponent(), 3, 3);
+        
+        UIInputButton substractionButton = new UIOperationButton("-", new SubstractionOperation());
+        substractionButton.addListener(listener);
+        builder.addLayoutElement(substractionButton.getComponent(), 3, 4);
+        
+        UIInputButton additionButton = new UIOperationButton("+", new AdditionOperation());
+        additionButton.addListener(listener);
+        builder.addLayoutElement(additionButton.getComponent(), 3, 5);
+        
+        UIInputButton resultButton = new UIResultButton("=");
+        resultButton.addListener(listener);
+        builder.addLayoutElement(resultButton.getComponent(), 3, 6);
+    }
+    
+    private void createNumbers(LayoutBuilder builder, IInputListener listener) {
+        UIInputButton decimalButton = new UIDecimalButton(".");
+        decimalButton.addListener(listener);
+        builder.addLayoutElement(decimalButton.getComponent(), 2, 4);
+        
+        int buttonColumn = 0;
+        int buttonRow = 5;
+        UIInputButton[] numbersButtons = new UIInputButton[10];
+        numbersButtons[0] = new UINumericButton("0");
+        numbersButtons[0].addListener(listener);
+        builder.addLayoutElement(numbersButtons[0].getComponent(), 1, 6);
+        for (Integer i = 1; i < numbersButtons.length; i++)
+        {
+            numbersButtons[i] = new UINumericButton(i.toString());
+            numbersButtons[i].addListener(listener);
+            builder.addLayoutElement(numbersButtons[i].getComponent(), buttonColumn, buttonRow);
+            buttonColumn++;
+            if (buttonColumn > 2) {
+                buttonColumn = 0;
+                buttonRow--;
+            }
+        }
     }
 }
