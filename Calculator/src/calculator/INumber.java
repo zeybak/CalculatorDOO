@@ -16,4 +16,6 @@ public interface INumber {
     public float getValue();
     @Override
     public String toString();
+    @Override
+    public boolean equals(Object other);
 }

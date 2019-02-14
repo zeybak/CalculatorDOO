@@ -5,6 +5,8 @@
  */
 package calculator;
 
+import java.util.Objects;
+
 /**
  *
  * @author mauro
@@ -50,5 +52,21 @@ public class Number implements INumber {
     @Override
     public String toString() {
         return this.number;
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof INumber)) return false;
+        INumber otherNumber = (INumber) other;
+        return otherNumber.getValue() == getValue();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.number);
+        return hash;
     }
 }
