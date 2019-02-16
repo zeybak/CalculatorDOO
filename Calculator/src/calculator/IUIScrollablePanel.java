@@ -9,9 +9,7 @@ package calculator;
  *
  * @author mauro
  */
-public interface IUI {
-    public void display(String label);
-    public void displayOperation(String label);
-    public void displayHistory(String[] labels);
+public interface IUIScrollablePanel extends IUIElement {
     public void clear();
+    public void setElements(String[] elements);
 }

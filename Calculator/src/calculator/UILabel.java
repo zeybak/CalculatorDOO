@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
  *
  * @author mauro
  */
-public class UILabel implements IUIElement, IUILabel{
+public class UILabel implements IUILabel{
     protected JLabel label;
     
     public UILabel() {

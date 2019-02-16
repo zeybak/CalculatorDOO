@@ -5,6 +5,8 @@
  */
 package calculator;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 
@@ -13,8 +15,9 @@ import javax.swing.JFrame;
  * @author mauro
  */
 public class UI implements IUI {
-    private IUILabel operation;
-    private IUILabel result;
+    protected IUILabel operation;
+    protected IUILabel result;
+    protected IUIScrollablePanel history;
     
     public UI(IInputListener listener) {
         JFrame calculatorUI = new JFrame("UBP: Object Oriented Design - Calculator");
@@ -30,6 +33,16 @@ public class UI implements IUI {
         layoutBuilder.generateLayout();
         
         calculatorUI.setLayout(layoutBuilder.getLayout());
+        calculatorUI.pack();
+        
+        JFrame historyUI = new JFrame("UBP: Object Oriented Design - History");
+        historyUI.setSize(400,500);
+        historyUI.setLocation(400, 0);
+        historyUI.setVisible(true);
+        
+        this.history = new UIScrollPanel();
+        historyUI.add(this.history.getComponent());
+        historyUI.pack();
     }
     
     @Override
@@ -108,5 +121,10 @@ public class UI implements IUI {
                 buttonRow--;
             }
         }
+    }
+
+    @Override
+    public void displayHistory(String[] labels) {
+        this.history.setElements(labels);
     }
 }

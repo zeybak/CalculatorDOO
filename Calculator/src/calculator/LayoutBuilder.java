@@ -51,8 +51,8 @@ public class LayoutBuilder {
                 if (this.uiElements[column][row] == null) {
                     continue;
                 }
-                columns[column].addComponent(this.uiElements[column][row], GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-                rows[row].addComponent(this.uiElements[column][row], GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+                columns[column].addComponent(this.uiElements[column][row], 35, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+                rows[row].addComponent(this.uiElements[column][row], 35, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
             }
         }
         
