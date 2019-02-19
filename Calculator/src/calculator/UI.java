@@ -102,7 +102,7 @@ public class UI implements IUI {
     private void createNumbers(LayoutBuilder builder, IInputListener listener) {
         UIInputButton decimalButton = new UIDecimalButton(".");
         decimalButton.addListener(listener);
-        builder.addLayoutElement(decimalButton.getComponent(), 2, 4);
+        builder.addLayoutElement(decimalButton.getComponent(), 2, 6);
         
         int buttonColumn = 0;
         int buttonRow = 5;
