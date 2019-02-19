@@ -10,6 +10,8 @@ package calculator;
  * @author mauro
  */
 public interface IExpression {
+    public boolean isCompleted();
+    public void setCompleted();
     public void addOperand(INumber number);
     public void setOperation(IOperation operation);
     public INumber evaluate();

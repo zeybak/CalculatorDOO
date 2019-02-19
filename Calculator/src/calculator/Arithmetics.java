@@ -19,6 +19,9 @@ public class Arithmetics implements IArithmetics {
     
     @Override
     public void addNumber(String number) {
+        if (this.currentExpression.isCompleted()) {
+            this.currentExpression = new Expression();
+        }
         if (this.currentOperand == null) {
             this.currentOperand = new Number();
         }
@@ -27,6 +30,9 @@ public class Arithmetics implements IArithmetics {
 
     @Override
     public void addDecimal() {
+        if (this.currentExpression.isCompleted()) {
+            this.currentExpression = new Expression();
+        }
         if (this.currentOperand == null) {
             this.currentOperand = new Number();
         }
@@ -61,6 +67,7 @@ public class Arithmetics implements IArithmetics {
         this.currentOperand = null;
         
         INumber result = this.currentExpression.evaluate();
+        this.currentExpression.setCompleted();
         return result;
     }
 

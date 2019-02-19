@@ -14,9 +14,21 @@ import java.util.ArrayList;
 public class Expression implements IExpression {
     protected ArrayList<INumber> operands;
     protected IOperation operation;
+    protected boolean isCompleted;
     
     public Expression() {
         this.operands = new ArrayList<>();
+        this.isCompleted = false;
+    }
+    
+    @Override
+    public boolean isCompleted() {
+        return this.isCompleted;
+    }
+    
+    @Override
+    public void setCompleted() {
+        this.isCompleted = true;
     }
     
     @Override
