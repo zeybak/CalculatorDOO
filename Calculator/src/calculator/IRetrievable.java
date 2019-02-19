@@ -10,5 +10,5 @@ package calculator;
  * @author mauro
  */
 public interface IRetrievable {
-    public Object[] getRetrievableData();
+    public Object getRetrievableData();
 }

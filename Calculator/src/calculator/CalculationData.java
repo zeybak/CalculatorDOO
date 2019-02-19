@@ -18,10 +18,8 @@ public class CalculationData implements IRetrievable {
     }
     
     @Override
-    public Object[] getRetrievableData() {
-        Object[] dataToRetrieve = new Object[1];
-        dataToRetrieve[0] = result;
-        return dataToRetrieve;
+    public Object getRetrievableData() {
+        return this.result;
     }
     
 }

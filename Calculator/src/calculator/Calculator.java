@@ -62,8 +62,8 @@ public class Calculator implements IInputListener {
             IRetrievable[] history = this.historyModule.getFinalData();
             String[] historyAsString = new String[history.length];
             for (int i = 0; i < history.length; i++) {
-                if (history[i].getRetrievableData()[0] instanceof String) {
-                    historyAsString[i] = (String)history[i].getRetrievableData()[0];
+                if (history[i].getRetrievableData() instanceof String) {
+                    historyAsString[i] = (String)history[i].getRetrievableData();
                 }
             }
             this.uiModule.displayHistory(historyAsString);
