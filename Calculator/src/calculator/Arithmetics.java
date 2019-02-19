@@ -5,104 +5,76 @@
  */
 package calculator;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author mauro
  */
 public class Arithmetics implements IArithmetics {
-    protected ArrayList<INumber> operands;
-    protected IOperation operation;
+    protected IExpression currentExpression;
+    protected INumber currentOperand;
     
     public Arithmetics() {
-        this.operands = new ArrayList<>();
+        this.currentExpression = new Expression();
     }
     
     @Override
     public void addNumber(String number) {
-        if (this.operation == null) {
-            if (!this.operands.isEmpty()) {
-                clear();
-            }
-            createNumber(number);
-            return;
+        if (this.currentOperand == null) {
+            this.currentOperand = new Number();
         }
-        if (this.operands.size() < this.operation.getOperandsNeeded()) {
-            createNumber(number);
-            return;
-        }
-        
-        this.operands.get(this.operands.size() - 1).addNumber(number);
+        this.currentOperand.addNumber(number);
     }
 
     @Override
     public void addDecimal() {
-        if (this.operands.isEmpty()) {
-            createNumber("0");
+        if (this.currentOperand == null) {
+            this.currentOperand = new Number();
         }
-        else if (this.operation != null && this.operands.size() < this.operation.getOperandsNeeded()) {
-            createNumber("0");
-        }
-        
-        this.operands.get(this.operands.size() - 1).addDecimal();
+        this.currentOperand.addDecimal();
     }
 
     @Override
     public void setOperation(IOperation operation) {
-        if (this.operands.size() > 0) {
-            if (this.operation != null && this.operands.size() >= this.operation.getOperandsNeeded()) {
-                calculate();
-            }
-            this.operation = operation;
+        if (this.currentOperand != null) {
+            this.currentExpression.addOperand(currentOperand);
         }
+        
+        INumber oldExpressionResult = calculate();
+        this.currentExpression = new Expression();
+        this.currentExpression.addOperand(oldExpressionResult);
+        
+        this.currentOperand = null;
+        this.currentExpression.setOperation(operation);
     }
 
     @Override
     public void clear() {
-        this.operands.clear();
-        this.operation = null;
+        this.currentExpression = new Expression();
+        this.currentOperand = null;
     }
 
     @Override
     public INumber calculate() {
-        INumber number = new Number();
-        if (this.operation != null) {
-            number.setValue(this.operation.evaluate(operandsAsArray()).getValue());
-            clear();
-            this.operands.add(number);
+        if (this.currentOperand != null) {
+            this.currentExpression.addOperand(currentOperand);
         }
-        return number;
+        this.currentOperand = null;
+        
+        INumber result = this.currentExpression.evaluate();
+        return result;
     }
 
     @Override
     public String getOperation() {
-        if (this.operation != null) {
-            return this.operation.getOperationDescription(operandsAsArray());
-        }
-        else {
-            return "";
-        }
+        return this.currentExpression.getDescription();
     }
 
     @Override
     public String getOperand() {
-        if (this.operands.isEmpty()) {
-            return "";
+        if (this.currentOperand == null) {
+            return "0";
         }
-        else {
-            return this.operands.get(this.operands.size() - 1).toString();
-        }
-    }
-    
-    private void createNumber(String value) {
-        Number number = new Number(value);
-        this.operands.add(number);
-    }
-    
-    private INumber[] operandsAsArray() {
-        INumber[] operandsArray = new INumber[this.operands.size()];
-        operandsArray = this.operands.toArray(operandsArray);
-        return operandsArray;
+        
+        return this.currentOperand.toString();
     }
 }

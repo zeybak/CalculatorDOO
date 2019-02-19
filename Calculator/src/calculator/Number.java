@@ -15,7 +15,7 @@ public class Number implements INumber {
     protected String number;
     
     public Number() {
-        this.number = "";
+        this.number = "0";
     }
     
     public Number(String value) {
@@ -28,7 +28,12 @@ public class Number implements INumber {
     
     @Override
     public void addNumber(String number) {
-        this.number += number;
+        if (this.number == "0") {
+            this.number = number;
+        }
+        else {
+            this.number += number;
+        }
     }
     
     @Override
